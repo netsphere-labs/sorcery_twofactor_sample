@@ -2,6 +2,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  # ポカ避けのため, 基底クラスで require_login し, 不要な時は派生クラスで skip
+  # する.
   before_action :require_login
   before_action :check_mfa
 
