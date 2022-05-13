@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SessionsController < ApplicationController
+class SessionController < ApplicationController
   skip_before_action :require_login, expect: [:destroy]
   prepend_before_action :authenticate_with_two_factor, only: :create
   skip_before_action :check_mfa

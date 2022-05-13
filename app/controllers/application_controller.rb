@@ -1,11 +1,13 @@
+# -*- coding:utf-8 -*-
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
   before_action :require_login
   before_action :check_mfa
 
-  private
+private
 
+  # 未ログインの状態で要ログインのページにアクセスした時に呼び出される
   def not_authenticated
     redirect_to login_path, alert: 'Please login first'
   end

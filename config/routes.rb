@@ -1,8 +1,12 @@
+# -*- coding: utf-8 -*-
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
   root 'users#index'
-  resources :sessions
+  # 単数形 singular resource. Rails ではコントローラ名が複数形になってしまうた
+  # め, controller オプションが必要.
+  resource :session, controller: 'session'
+  
   resources :users
   resource :user_mfa_session, only: %i[new create]
 
