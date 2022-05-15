@@ -1,9 +1,11 @@
+# -*- coding:utf-8 -*-
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
-  skip_before_action :require_login, only: %i[index new create]
-  skip_before_action :check_mfa
+  # 手抜いて users コントローラでユーザ登録しているが、後段の本人確認などを行う
+  # ため, account コントローラなどを作った方がよい.
+  skip_before_action :require_login, only: %i[new create]
 
   # GET /users
   # GET /users.json
@@ -28,7 +30,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to(:users, notice: 'User was successfully created')
+      redirect_to '/', notice: 'User was successfully created'
     else
       render :new
     end

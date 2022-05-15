@@ -19,12 +19,15 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
   validates :email, presence:true
 
-  acts_as_google_authenticated lookup_token: :persistence_token, drift: 30, issuer: 'test_twofactor_auth'
-  
-  before_create { |record|
-    record.persistence_token = SecureRandom.hex unless record.persistence_token
-  }
+  # lookup_token: カラム名. デフォルトは `persistence_token`. クッキーに保存す
+  #               るときのキー.
+  # drift: 許容する秒数
+  # issuer: Google 認証システムの画面に表示される.
+  acts_as_google_authenticated drift: 30, issuer: 'test_twofactor_auth'
   after_create { |record|
+    # GoogleAuthenticatorRails::generate_secret の値が設定される. ユーザごと.
     record.set_google_secret
+    # persistence_token はここで設定する必要ない
+    #record.persistence_token = SecureRandom.hex unless record.persistence_token
   }
 end

@@ -1,0 +1,14 @@
+
+<% if !@user.persistence_token %>
+<p>Google認証システムを開き、[+追加] から, QRコードをスキャンしてください。<br />
+  <%= image_tag @user.google_qr_uri %>
+<% end %>
+
+<p>Google認証システムに表示される 6桁のコードを入力してください。
+
+<%= form_tag user_mfa_session_path, method: :post do %>
+  <div class="actions">
+    <%= text_field :auth, :mfa_code %>
+    <%= submit_tag 'authenticate' %>
+  </div>
+<% end %>

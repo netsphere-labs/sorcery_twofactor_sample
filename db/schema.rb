@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 2019_02_22_111824) do
     t.datetime "updated_at", null: false
     t.string "persistence_token"
     t.string "google_secret"
-    t.boolean "first_twofactor_logged_in"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

@@ -4,8 +4,11 @@
 class ApplicationController < ActionController::Base
   # ポカ避けのため, 基底クラスで require_login し, 不要な時は派生クラスで skip
   # する.
+  # Sorcery::Controller::InstanceMethods で定義される.
   before_action :require_login
+
   before_action :check_mfa
+
 
 private
 
@@ -14,10 +17,15 @@ private
     redirect_to login_path, alert: 'Please login first'
   end
 
+  # For before_action
+  # ログイン後、mfa を強制
   def check_mfa
-    if !(user_mfa_session = UserMfaSession.find) && (user_mfa_session ? user_mfa_session.record == current_user : !user_mfa_session)
-      logout
-      redirect_to new_session_path
+    return if !current_user
+
+    if !(user_mfa_session = UserMfaSession.find) ||
+       user_mfa_session.record.email != current_user.email
+      #logout
+      redirect_to new_user_mfa_session_path
     end
   end
 end

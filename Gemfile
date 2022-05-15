@@ -48,7 +48,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'google-authenticator-rails', '~> 2.0'
-gem 'sorcery'
+# CVE-2016-11086 `oauth` dependency
+gem 'sorcery', '>= 0.16.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

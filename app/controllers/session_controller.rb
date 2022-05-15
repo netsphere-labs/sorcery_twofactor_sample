@@ -1,32 +1,30 @@
+# -*- coding:utf-8 -*-
 # frozen_string_literal: true
 
+# 単数形
 class SessionController < ApplicationController
-  skip_before_action :require_login, expect: [:destroy]
-  prepend_before_action :authenticate_with_two_factor, only: :create
-  skip_before_action :check_mfa
+  skip_before_action :require_login, only: [:new, :create]
+  # ログイン後, MFAせずにログアウトの経路がある
+  skip_before_action :check_mfa, only: [:destroy]
 
+  # GET /login
   def new
-    @user = User.new
   end
 
-  def create; end
+  # POST /session
+  def create
+    if login(params[:email], params[:password])
+      redirect_back_or_to('/', notice: 'Login successful')
+    else
+      flash[:alert] = 'Login failed'
+      render 'new'
+    end
+  end
 
+  # POST /logout
   def destroy
     logout
-    redirect_to(:users, notice: 'Logged out!')
+    redirect_to '/', notice: 'Logged out!'
   end
 
-  private
-
-  def authenticate_with_two_factor
-    user = User.find_by(email: params[:email])
-    if user.blank?
-      render action: 'new'
-      return
-    end
-    session[:email] = params[:email]
-    session[:password] = params[:password]
-
-    redirect_to new_user_mfa_session_path
-  end
 end
