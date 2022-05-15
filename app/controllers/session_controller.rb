@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 
 # 単数形
 class SessionController < ApplicationController
@@ -15,14 +16,14 @@ class SessionController < ApplicationController
       redirect_back_or_to('/', notice: 'Login successful')
     else
       flash[:alert] = 'Login failed'
-      render 'new'
+      render 'new', status: :unprocessable_entity
     end
   end
 
   # POST /logout
   def destroy
     logout
-    redirect_to '/', notice: 'Logged out!'
+    redirect_to '/', notice:'Logged out!', status: :see_other
   end
 
 end

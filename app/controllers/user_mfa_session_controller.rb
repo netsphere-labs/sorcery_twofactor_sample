@@ -31,7 +31,7 @@ class UserMfaSessionController < ApplicationController
       redirect_to user_path(@user), notice: 'MFA successful'
     else
       flash[:alert] = "Wrong code"
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
