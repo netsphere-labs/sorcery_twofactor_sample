@@ -1,5 +1,8 @@
 
 <% if !@user.persistence_token %>
+<% # NoMethodError: undefined method `encode' for URI:Module
+   #     issuer_string = issuer.nil? ? "" : "#{URI.encode(issuer)}:"
+  %>
 <p>Google認証システムを開き、[+追加] から, QRコードをスキャンしてください。<br />
   <%= image_tag @user.google_qr_uri %>
 <% end %>

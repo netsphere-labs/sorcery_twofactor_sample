@@ -1,5 +1,3 @@
-# -*- coding:utf-8 -*-
-# frozen_string_literal: true
 
 # 単数形
 class SessionController < ApplicationController

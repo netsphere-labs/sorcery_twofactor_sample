@@ -1,21 +1,20 @@
 # -*- coding:utf-8 -*-
-# frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show edit update destroy]
+  before_action :set_user, only: %i[ show edit update destroy ]
   # 手抜いて users コントローラでユーザ登録しているが、後段の本人確認などを行う
   # ため, account コントローラなどを作った方がよい.
   skip_before_action :require_login, only: %i[new create]
 
-  # GET /users
-  # GET /users.json
+
+  # GET /users or /users.json
   def index
     @users = User.all
   end
 
-  # GET /users/1
-  # GET /users/1.json
-  def show; end
+  # GET /users/1 or /users/1.json
+  def show
+  end
 
   # GET /users/new
   def new
@@ -23,52 +22,47 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1/edit
-  def edit; end
+  def edit
+  end
 
-  # POST /users
-  # POST /users.json
+  # POST /users or /users.json
   def create
-    @user = User.new(user_params)
+    @user = User.new(user_params.permit(:email, :password,
+                                        :password_confirmation))
     if @user.save
-      redirect_to '/', notice: 'User was successfully created'
+      redirect_to '/', notice: "User was successfully created."
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /users/1
-  # PATCH/PUT /users/1.json
+
+  # PATCH/PUT /users/1 or /users/1.json
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.update(user_params)
+      redirect_to user_url(@user), notice: "User was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
+
+  # DELETE /users/1 or /users/1.json
   def destroy
     @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to users_url, notice: "User was successfully destroyed."
   end
 
-  private
+
+private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user
     @user = User.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
+  # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation)
+    params.fetch(:user, {})
   end
 end

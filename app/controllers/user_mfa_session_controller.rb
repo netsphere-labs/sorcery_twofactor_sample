@@ -1,5 +1,10 @@
 # -*- coding:utf-8 -*-
-# frozen_string_literal: true
+
+if RUBY_VERSION >= "3.0.0"
+def URI.encode str, unsafe = nil
+  URI.encode_www_form_component(str)
+end
+end
 
 # 単数形
 class UserMfaSessionController < ApplicationController

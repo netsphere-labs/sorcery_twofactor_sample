@@ -1,5 +1,3 @@
-# -*- coding:utf-8 -*-
-# frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
   # ポカ避けのため, 基底クラスで require_login し, 不要な時は派生クラスで skip

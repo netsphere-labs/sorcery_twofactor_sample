@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
-# frozen_string_literal: true
-
 Rails.application.routes.draw do
-  root 'welcome#index'
+  # Defines the root path route ("/")
+  root "welcome#index"
 
   # 単数形 singular resource. Rails ではコントローラ名が複数形になってしまうた
   # め, controller: オプションが必要.
@@ -16,5 +14,6 @@ Rails.application.routes.draw do
 
   resources :users
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
 end
