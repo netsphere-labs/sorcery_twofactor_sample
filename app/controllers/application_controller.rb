@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 
 class ApplicationController < ActionController::Base
   # ポカ避けのため, 基底クラスで require_login し, 不要な時は派生クラスで skip
@@ -21,8 +22,11 @@ private
     return if !current_user
 
     if !(user_mfa_session = UserMfaSession.find) ||
-       user_mfa_session.record.email != current_user.email
-      #logout
+                user_mfa_session.record.email != current_user.email
+      if Sorcery::Controller::Config.save_return_to_url && request.get? &&
+                !request.xhr? && !request.format.json?
+        session[:return_to_url] = request.url
+      end
       redirect_to new_user_mfa_session_path
     end
   end

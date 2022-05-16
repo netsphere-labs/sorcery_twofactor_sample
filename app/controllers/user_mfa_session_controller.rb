@@ -28,7 +28,7 @@ class UserMfaSessionController < ApplicationController
         @user.save!
       end
       UserMfaSession.create(@user)
-      redirect_to user_path(@user), notice: 'MFA successful'
+      redirect_back_or_to user_path(@user), notice: 'MFA successful'
     else
       flash[:alert] = "Wrong code"
       render :new, status: :unprocessable_entity

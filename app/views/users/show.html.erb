@@ -16,5 +16,11 @@
   <%= @user.salt %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<div>
+  <%= link_to "Edit this user", edit_user_path(@user) %> |
+  <%= link_to "Back to users", users_path %>
+
+  <%= button_to "Destroy this user", @user, 
+                {method: :delete,
+                 form: {data:{turbo_confirm:"本当に削除しますか?"}}} %>
+</div>
