@@ -1,13 +1,9 @@
 # Sorceryで二段階認証 2FA を実装したサンプルコード
 
-ちょっとした解説を書いたブログ  
-https://yu1056y.hatenablog.com/entry/2019/04/21/164540
-
-その元ネタ. Rails v4.2, google-authenticator-rails v1.2.
-https://moneyforward.com/engineers_blog/2015/08/06/google-authenticator-rails/
-
-マネーフォワードエンジニアブログのほうはよいが、それを元にしたゆいな (id:yu1056y) 氏のソースコードは、控えめに言って問題が多く、作り直した。
-
+ - Ruby 3.1
+ - Ruby on Rails 7
+ - Sorcery
+ - google-authenticator-rails, ~> 2.0
 
 
 
@@ -18,6 +14,19 @@ https://moneyforward.com/engineers_blog/2015/08/06/google-authenticator-rails/
 `specifications/google-authenticator-rails-2.0.0.gemspec` ファイルを編集し、修正済である rotp v4.0.2 に依存するようにする。
 
  2. 更新されていない `google-qr` パッケージ (最終が 2012年) も同様。こういうのは困るね。`URI.encode()` を定義してやるしかない。
+
+
+
+## 先行事例
+
+ちょっとした解説を書いたブログ  
+https://yu1056y.hatenablog.com/entry/2019/04/21/164540
+
+その元ネタ. Rails v4.2, google-authenticator-rails v1.2.
+https://moneyforward.com/engineers_blog/2015/08/06/google-authenticator-rails/
+
+マネーフォワードエンジニアブログのほうはよいが、それを元にしたゆいな (id:yu1056y) 氏のソースコードは、控えめに言って問題が多く、作り直した。
+
 
 
 
