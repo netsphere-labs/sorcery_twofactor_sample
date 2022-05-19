@@ -5,6 +5,7 @@
  - Sorcery
  - google-authenticator-rails, ~> 2.0
 
+解説 https://www.nslabs.jp/digital-identity.rhtml
 
 
 ## 依存関係
