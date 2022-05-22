@@ -7,9 +7,9 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
+  <link href="/bootstrap5/css/bootstrap.min.css" rel="stylesheet" />
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags %>
-  <link href="/bootstrap5/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -47,21 +47,21 @@
   </div>      
 </nav>
 
-<% if (notice = flash[:notice]) %>
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-  <%= notice %>
+<% # flash[:notice], flash[:alert] は短縮表記もある. See ActionDispatch::Flash
+   {notice: "alert alert-success",
+    alert: "alert alert-danger"}.each do |key, klass|
+     if (message = flash[key]) %>
+<%= tag.div(class: klass + " alert-dismissible fade show", role:"alert") do %>
+  <%= message %>
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
 <% end %>
-<% if (alert = flash[:alert]) %>
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
-  <%= alert %>
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-<% end %>
+<%   end
+   end %>
 
-<%= yield %>
 
-  <script src="/bootstrap5/js/bootstrap.bundle.min.js" ></script>
+  <%= yield %>
+
+<% # importmap-rails を使う場合, ここで <script src="/bootstrap5/js/bootstrap.bundle.min.js"> を書いてはならない。
+  %>
 </body>
 </html>

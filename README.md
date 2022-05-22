@@ -8,13 +8,38 @@
 解説 https://www.nslabs.jp/digital-identity.rhtml
 
 
-## 依存関係
+
+## 実装メモ
+
+### 依存関係
 
  1. `google-authenticator-rails` パッケージは `rotp = 3.3.0` に依存しており、このヴァージョンが内部で `URI.encode()` を呼び出しているため、Ruby 3.0 で動かない。新しい `rotp` パッケージは修正済だが、どうしたものか.
 
 `specifications/google-authenticator-rails-2.0.0.gemspec` ファイルを編集し、修正済である rotp v4.0.2 に依存するようにする。
 
  2. 更新されていない `google-qr` パッケージ (最終が 2012年) も同様。こういうのは困るね。`URI.encode()` を定義してやるしかない。
+
+
+### Rails 7 (importmap-rails) + Bootstrap 5 JavaScript not working
+
+`importmap-rails` を使う場合, `<body>` 内に `<script src="/bootstrap5/js/bootstrap.bundle.min.js">` タグを書いても, 画面遷移後に JavaScript が正常に動かない. 一見動いてるように見えるのが混乱する。
+
+```
+  $ bin/importmap pin bootstrap
+```
+`config/importmap.rb` ファイルに次が追加される.
+
+```ruby
+pin "bootstrap", to: "https://ga.jspm.io/npm:bootstrap@5.1.3/dist/js/bootstrap.esm.js"
+pin "@popperjs/core", to: "https://ga.jspm.io/npm:@popperjs/core@2.11.5/lib/index.js"
+```
+
+`app/javascript/application.js` ファイルに `import` 文を追加.
+
+```ruby
+import * as bootstrap from "bootstrap"
+```
+
 
 
 
