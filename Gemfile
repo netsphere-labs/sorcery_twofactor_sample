@@ -5,13 +5,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby ">= 3.1.1"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.2", ">= 7.0.2.4"
+gem "rails", "~> 7.0.4"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
 # Use sqlite3 as the database for Active Record
-gem "sqlite3", "~> 1.4"
+gem "sqlite3", "~> 1.5"
 
 # Use the Puma web server [https://github.com/puma/puma]
 #gem "puma", "~> 5.0"
@@ -72,8 +72,14 @@ group :test do
   gem "webdrivers"
 end
 
-# 今度は verify_with_drift() がなくなっていて、これでも動かない.
-#gem 'rotp', '~> 4.0.1'
-gem 'google-authenticator-rails', '~> 2.0'
-# CVE-2016-11086 `oauth` dependency
-gem 'sorcery', '>= 0.16.1'
+#   google-authenticator-rails-3.0.0
+#     -> rqrcode-2.1.2
+#          -> chunky_png-1.4.0
+#     -> rotp >= 5.0, < 7.0 .. rotp-6.2.0
+#   google-authenticator-rails-2.0.0
+#     -> rotp = 3.3.0     .. rotp-4.0.0 で verify_with_drift() 廃止のため固定.
+gem 'google-authenticator-rails', '~> 3.0'
+
+# sorcery-0.16.3 -> oauth2 ~> 1.0, >= 0.8.0
+# sorcery-0.16.4 -> oauth2 ~> 2.0   .. 非互換な変更あり.
+gem 'sorcery', '>= 0.16.4'

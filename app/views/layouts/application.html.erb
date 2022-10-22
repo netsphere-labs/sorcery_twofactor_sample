@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-md navbar-light bg-light">
   <div class="container-fluid">    
     <a class="navbar-brand" >2FA Sample</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -58,8 +58,9 @@
 <%   end
    end %>
 
-
+<div class="container">
   <%= yield %>
+</div>
 
 <% # importmap-rails を使う場合, ここで <script src="/bootstrap5/js/bootstrap.bundle.min.js"> を書いてはならない。
   %>
