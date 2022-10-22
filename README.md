@@ -25,14 +25,14 @@ Ruby on Rails で非常に簡単に2要素認証 (2FA) を組み込むサンプ�
 ```
 
 ユーザ登録
-<img src="01_new_user.png" width="640" />
+<img src="01_new_user.png" width="560" />
 ログイン画面. ID (メイルアドレス) とパスワード.
-<img src="02_login_screen.png" width="640" /> 
+<img src="02_login_screen.png" width="560" /> 
 
 1要素目の認証が成功したので、QRコードで登録を促す. 当然, 2回目以降はQRコードを表示しない (してはならない)。
-<img src="03_google_qr_code.png" width="640" /> 
+<img src="03_google_qr_code.png" width="560" /> 
 ログイン成功.
-<img src="04_succeeded.png" width="640" />
+<img src="04_succeeded.png" width="560" />
 
 
 
